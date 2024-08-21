@@ -24,7 +24,7 @@ class MainActivity : AppCompatActivity() {
     override fun onStart() {
         super.onStart()
         Log.i("MainActivity","onStart")
-        Toast.makeText(this,"Activity started",Toast.LENGTH_SHORT).show()S
+        Toast.makeText(this,"Activity started",Toast.LENGTH_SHORT).show()
 
     }
 
