@@ -1,18 +1,20 @@
 package com.example.p2_140
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
-import android.util.Log
-import android.widget.Toast
+import android.provider.MediaStore
+import android.widget.Button
+import android.widget.EditText
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import com.example.p2_140.R
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        Log.i("MainActivity","onCreate")
-        Toast.makeText(this,"Activity Created",Toast.LENGTH_SHORT).show()
         enableEdgeToEdge()
         setContentView(R.layout.activity_main)
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
@@ -20,37 +22,49 @@ class MainActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
-    }
+        val btn1 = findViewById<Button>(R.id.btn1)
+        val edittext=findViewById<EditText>(R.id.main_edit_text)
+        btn1.setOnClickListener {
+            val intent=Intent(this,LoginActivity::class.java)
+            intent.putExtra("username",edittext.text.toString())
+            startActivity(intent)
+        }
+        val webpagebtn=findViewById<Button>(R.id.webpagebtn)
+        val callbtn=findViewById<Button>(R.id.callbtn)
+        val camerabtn=findViewById<Button>(R.id.camerabtn)
+        val calllogbtn=findViewById<Button>(R.id.calllogbtn)
+        val Gallerybtn=findViewById<Button>(R.id.Gallerybtn)
+        val Alarmbtn=findViewById<Button>(R.id.Alarmbtn)
 
-    override fun onStart() {
-        super.onStart()
-        Log.i("MainActivity","onStart")
-        Toast.makeText(this,"Activity started",Toast.LENGTH_SHORT).show()
+        webpagebtn.setOnClickListener {
+            val intent=Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/zakir19"))
+            startActivity(intent)
+        }
 
-    }
+        callbtn.setOnClickListener {
+            val intent=Intent(Intent.ACTION_DIAL)
+            intent.data=Uri.parse("tel:+9106209714")
+            startActivity(intent)
+        }
 
-    override fun onResume() {
-        super.onResume()
-        Log.i("MainActivity","onResume")
-        Toast.makeText(this,"Activity resumed",Toast.LENGTH_SHORT).show()
-    }
+        camerabtn.setOnClickListener {
+            val intent=Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+            startActivity(intent)
+        }
 
-    override fun onPause() {
-        super.onPause()
-        Log.i("MainActivity","onPause")
-        Toast.makeText(this,"Activity paused",Toast.LENGTH_SHORT).show()
-    }
+        calllogbtn.setOnClickListener {
+            val intent=Intent(Intent.ACTION_VIEW)
+            startActivity(intent)
+        }
 
-    override fun onStop() {
-        super.onStop()
-        Log.i("MainActivity","onStop")
-        Toast.makeText(this,"Activity stoped",Toast.LENGTH_SHORT).show()
-    }
+        Gallerybtn.setOnClickListener{
+            val intent=Intent(Intent.ACTION_VIEW).setType("image/*")
+            startActivity(intent)
+        }
 
-    override fun onDestroy() {
-        super.onDestroy()
-        Log.i("MainActivity","onDestroy called")
-        Toast.makeText(this,"Activity Destroyed",Toast.LENGTH_SHORT).show()
-
+        Alarmbtn.setOnClickListener{
+            val intent=Intent(Intent.ACTION_VIEW).setType("alarm/*")
+            startActivity(intent)
+        }
     }
 }
